@@ -34,8 +34,12 @@ After the tests finish, open the HTML report in a browser:
 target/extent-report.html
 ```
 
+
 The report includes:
 
 - **All tests (Pass / Fail / Skipped)** 
 - **Detailed logs for each test**
 - **Execution time**
+<img width="420" height="288" alt="image" src="https://github.com/user-attachments/assets/821925ff-e983-48e8-a8c3-84c0cef1a779" />
+
+  
