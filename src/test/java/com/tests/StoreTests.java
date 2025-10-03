@@ -2,6 +2,7 @@ package com.tests;
 
 import com.api.StoreController;
 import com.base.BaseTest;
+import com.configuration.annotations.Flaky;
 import com.dto.Order;
 import com.dto.response.ErrorOrderResponse;
 import com.utils.DataGenerator;
@@ -43,6 +44,7 @@ public class StoreTests extends BaseTest {
         Assert.assertEquals(createdOrder.getStatus(), "placed", "Status should be 'placed'");
     }
 
+    @Flaky(reason = "Sometimes fails due to unstable API")
     @Test(description = "Get order by id")
     public void getOrderById() {
         orderWaiter.waitForOrderAvailable(createdOrder.getId(), createdOrder);
@@ -59,6 +61,7 @@ public class StoreTests extends BaseTest {
         Assert.assertEquals(errorOrderResponse.getMessage(), "Order not found", "Error message should be 'Order not found'");
     }
 
+    @Flaky(reason = "Sometimes fails due to unstable API")
     @Test(description = "Delete order")
     public void deleteOrder() {
         store.deleteOrder(createdOrder.getId());
