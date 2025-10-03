@@ -20,7 +20,7 @@ The project is organized for scalability and maintainability:
 1. **Clone the repository**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/skimmer20/petstore-store-api-tests
 cd <repository-folder>
 ```
 2. **Run tests with Maven**
