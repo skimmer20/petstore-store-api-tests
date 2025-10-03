@@ -15,10 +15,4 @@ public class DataGenerator {
         order.setComplete(false);
         return order;
     }
-
-    public static Order invalidOrderMissingPetId() {
-        Order order = validOrder();
-        order.setPetId(null);
-        return order;
-    }
 }
