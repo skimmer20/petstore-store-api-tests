@@ -35,20 +35,20 @@ public class ExtentTestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         if (isFlaky(result)) {
-            test.get().log(Status.WARNING, "✅ Test passed, but marked as @Flaky: " + getFlakyReason(result));
+            test.get().log(Status.WARNING, "Test passed, but marked as @Flaky: " + getFlakyReason(result));
             test.get().assignCategory("FLAKY");
         } else {
-            test.get().pass("✅ Test passed");
+            test.get().pass("Test passed");
         }
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         if (isFlaky(result)) {
-            test.get().log(Status.WARNING, "❌ Test failed and marked as @Flaky: " + getFlakyReason(result));
+            test.get().log(Status.WARNING, "Test failed and marked as @Flaky: " + getFlakyReason(result));
             test.get().assignCategory("FLAKY");
         } else {
-            test.get().fail("❌ Test failed: " + result.getThrowable());
+            test.get().fail("Test failed: " + result.getThrowable());
         }
     }
 
