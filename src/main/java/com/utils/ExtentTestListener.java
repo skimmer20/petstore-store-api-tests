@@ -2,7 +2,9 @@ package com.utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.configuration.annotations.Flaky;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -32,12 +34,31 @@ public class ExtentTestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.get().pass("Test passed");
+        if (isFlaky(result)) {
+            test.get().log(Status.WARNING, "✅ Test passed, but marked as @Flaky: " + getFlakyReason(result));
+            test.get().assignCategory("FLAKY");
+        } else {
+            test.get().pass("✅ Test passed");
+        }
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.get().fail(result.getThrowable());
+        if (isFlaky(result)) {
+            test.get().log(Status.WARNING, "❌ Test failed and marked as @Flaky: " + getFlakyReason(result));
+            test.get().assignCategory("FLAKY");
+        } else {
+            test.get().fail("❌ Test failed: " + result.getThrowable());
+        }
+    }
+
+    private boolean isFlaky(ITestResult result) {
+        return result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(Flaky.class);
+    }
+
+    private String getFlakyReason(ITestResult result) {
+        Flaky flaky = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(Flaky.class);
+        return flaky != null ? flaky.reason() : "";
     }
 
     @Override
